@@ -47,16 +47,40 @@
  */
 export function createPaanOrder(basePaan, customizations) {
   // Your code here
+  if (typeof customizations !== "object") return { ...basePaan };
+
+  return typeof basePaan !== "object" || basePaan === null
+    ? {}
+    : Object.assign({}, basePaan, customizations);
 }
 
 export function freezeMenu(menu) {
   // Your code here
+  return typeof menu !== "object" || menu === null ? {} : Object.freeze(menu);
 }
 
 export function updatePrices(menu, increase) {
   // Your code here
+  if (
+    Object.prototype.toString.call(menu) !== "[object Object]" ||
+    typeof increase !== "number"
+  )
+    return {};
+
+  const entries = Object.entries(menu);
+  for (let index = 0; index < entries.length; index++) {
+    entries[index][1] += increase;
+  }
+
+  return Object.fromEntries(entries);
 }
+
+console.log(updatePrices({ meetha: 30, saada: 20 }, 10));
 
 export function mergeDailySpecials(regularMenu, specialsMenu) {
   // Your code here
+
+  return typeof regularMenu !== "object" || typeof specialsMenu !== "object"
+    ? {}
+    : { ...regularMenu, ...specialsMenu };
 }

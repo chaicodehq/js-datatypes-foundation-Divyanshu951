@@ -49,20 +49,36 @@
  */
 export function addToCart(cart, item) {
   // Your code here
+  // Check for empty string and an other type other than string
+  if (!item || typeof item !== "string") return cart.length;
+
+  return !Array.isArray(cart) ? -1 : cart.push(item);
 }
 
 export function addUrgentItem(cart, item) {
   // Your code here
+  if (typeof item !== "string" || !item) return cart;
+  if (!Array.isArray(cart)) return [];
+  cart.unshift(item);
+
+  return cart;
 }
+console.log(addUrgentItem(["tamatar"], ""));
 
 export function removeLastItem(cart) {
   // Your code here
+  return !Array.isArray(cart) || cart.length === 0 ? undefined : cart.pop();
 }
 
 export function isInCart(cart, item) {
   // Your code here
+  return !Array.isArray(cart) ? false : cart.includes(item);
 }
 
 export function mergeCarts(cart1, cart2) {
   // Your code here
+  if (!Array.isArray(cart1)) cart1 = [];
+  if (!Array.isArray(cart2)) cart2 = [];
+
+  return cart1.concat(cart2);
 }
